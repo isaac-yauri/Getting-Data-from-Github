@@ -1,4 +1,5 @@
 library(httr)
+library(httpuv)
 
 # 1. Find OAuth settings for github:
 #    http://developer.github.com/v3/oauth/
@@ -17,11 +18,11 @@ github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 
 # 4. Use API
 gtoken <- config(token = github_token)
-req <- GET("https://api.github.com/rate_limit", gtoken)
+req <- GET("https://api.github.com/users/jtleek/repos", gtoken)
 stop_for_status(req)
 content(req)
 
 # OR:
-req <- with_config(gtoken, GET("https://api.github.com/rate_limit"))
+req <- with_config(gtoken, GET("https://api.github.com/users/jtleek/repos"))
 stop_for_status(req)
 content(req)
